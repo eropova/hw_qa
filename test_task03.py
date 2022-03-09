@@ -4,21 +4,21 @@
 
 from unittest.mock import Mock
 
+with open('1.txt', 'r+') as file:
+    response = Mock(return_value=file)
 
-response = Mock(return_value=[{'user1': 1}, {'user2': 2}, {'user3': 3}, {'user4': 4}, {'user5': 5},
-                              {'user6': 6}, {'user7': 7}, {'user8': 8}, {'user9': 9}, {'user10': 10}])
 response.status_code.return_value = 200
-response.json.return_value = 10
 response.headers.return_value = 'application/json; charset=utf-8'
+response.json.return_value = 10
+
+class TestMock:
+    def test_status_code(self):
+        assert response.status_code() == 200
 
 
-def test_status_code():
-    assert response.status_code() == 200
+    def test_header(self):
+        assert response.headers() == 'application/json; charset=utf-8'
 
 
-def test_header():
-    assert response.headers() == 'application/json; charset=utf-8'
-
-
-def test_body():
-    assert len(response()) == 10
+    def test_body(self):
+        assert response.json() == 10
