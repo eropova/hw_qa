@@ -29,10 +29,9 @@ class TestCalc:
         assert float_sum(0, -2.508) == float(sum([0, -2.508]))
         assert type(float_sum(-4.558, -2.508)) == float
 
-    #корректные значения ((5.5, 5.5), 11) оставила специально, проверить что тест пойдет дальше после
     @pytest.mark.parametrize("test_input,expected", [(('a', 4.558), ValueError),
-                                                     ((2.508, "b"), ValueError),
-                                                     ((5.5, 5.5), 11)])
+                                                     ((2.508, "b"), ValueError)
+                                                     ])
     def test_check_float_sum(self, test_input, expected):
         with pytest.raises(ValueError):
             float_sum(*test_input)
@@ -66,7 +65,7 @@ class TestCalc:
             float_sub(*test_input)
 
     def test_int_mult(self):
-        assert int_mult(4, 2) == (4*2)
+        assert int_mult(4, 2) == (4 * 2)
         assert int_mult(2.222, 1.555) == int(2.222) * int(1.555)
         assert int_mult(0, 2) == int(0) * int(2)
         assert int_mult(-4, 2) == int(-4) * int(2)
@@ -94,12 +93,9 @@ class TestCalc:
             float_mult(*test_input)
 
     def test_int_div(self):
-        assert int_div(4, 2) == 4/2
+        assert int_div(4, 2) == 4 / 2
         assert int_div(4.558, 2.508) == int(4.558) / int(2.508)
         assert int_div(0, 2.508) == int(0) / int(2.508)
-
-        with pytest.raises(ZeroDivisionError):
-            assert int_div(4, 0)
 
     @pytest.mark.parametrize("test_input, expected", [(('a', 4.558), ValueError),
                                                       ((2.508, "b"), ValueError)])
@@ -138,8 +134,10 @@ class TestCalc:
 
     def test_float_sqrt(self):
         assert float_sqrt(4.558) == m.sqrt(4.558)
-        assert float_sqrt(-4.558) == m.sqrt(-4.558)
         assert float_sqrt(1000) == m.sqrt(1000)
+
+        with pytest.raises(ValueError):
+            assert float_sqrt(-4.558) == m.sqrt(-4.558)
 
     @pytest.mark.parametrize("test_input, expected", [('a', TypeError)])
     def test_check_float_sqrt(self, test_input, expected):
