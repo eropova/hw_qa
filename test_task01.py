@@ -137,7 +137,7 @@ class TestCalc:
         assert float_sqrt(1000) == m.sqrt(1000)
 
         with pytest.raises(ValueError):
-            assert float_sqrt(-4.558) == m.sqrt(-4.558)
+            float_sqrt(-4.558) 
 
     @pytest.mark.parametrize("test_input, expected", [('a', TypeError)])
     def test_check_float_sqrt(self, test_input, expected):
